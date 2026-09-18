@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Express Tours & Travels</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+
+header{
+  background:#fff;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+  box-shadow:0 2px 12px #00000010;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.logo{
+  font-size:21px;
+  font-weight:800;
+  color:#111827;
+}
+.logo span{color:#e63946}
+
+nav{
+  display:flex;
+  gap:28px;
+}
+nav a{
+  text-decoration:none;
+  color:#374151;
+  font-weight:600;
+}
+nav a:hover{color:#e63946}
+
+.menu{
+  display:none;
+  font-size:27px;
+}
+
+.hero{
+  min-height:560px;
+  padding:70px 6%;
+  display:flex;
+  align-items:center;
+  background:
+  linear-gradient(90deg,#111827ee,#11182799,#11182722),
+  url("https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1800&q=80")
+  center/cover;
+  color:white;
+}
+.hero-content{max-width:650px}
+.badge{
+  display:inline-block;
+  background:#ffffff1c;
+  border:1px solid #ffffff40;
+  padding:9px 15px;
+  border-radius:30px;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:52px;
+  line-height:1.08;
+  margin-bottom:18px;
+}
+.hero h1 span{color:#ffcc33}
+.hero p{
+  font-size:18px;
+  line-height:1.6;
+  color:#e5e7eb;
+  margin-bottom:30px;
+}
+.btn{
+  padding:14px 22px;
+  border-radius:10px;
+  font-weight:700;
+  transition:.2s;
+}
+.primary{background:#e63946;color:#fff}
+.primary:hover{transform:translateY(-2px)}
+.white{background:#fff;color:#111827;margin-left:10px}
+
+.booking-box{
+  background:#fff;
+  color:#111827;
+  margin-top:-65px;
+  position:relative;
+  z-index:10;
+  width:88%;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 12px 40px #00000018;
+}
+.booking-box h2{margin-bottom:18px}
+.booking-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  color:#6b7280;
+  margin-bottom:7px;
+}
+.field input,.field select{
+  width:100%;
+  border:1px solid #e5e7eb;
+  border-radius:9px;
+  padding:13px;
+  outline:none;
+  background:#fafafa;
+}
+.field input:focus,.field select:focus{
+  border-color:#e63946;
+}
+.booking-submit{
+  margin-top:15px;
+  width:100%;
+}
+
+section{
+  padding:75px 6%;
+}
+.section-title{
+  text-align:center;
+  margin-bottom:38px;
+}
+.section-title h2{
+  font-size:32px;
+  margin-bottom:10px;
+}
+.section-title p{color:#6b7280}
+
+.routes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.route{
+  background:#fff;
+  padding:24px;
+  border-radius:15px;
+  box-shadow:0 4px 18px #00000009;
+}
+.route .icon{font-size:32px;margin-bottom:15px}
+.route h3{margin-bottom:7px}
+.route p{color:#6b7280;font-size:14px}
+
+.cars{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.car{
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 5px 20px #00000010;
+}
+.car img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+}
+.car-body{padding:20px}
+.car-body h3{margin-bottom:8px}
+.car-info{
+  display:flex;
+  justify-content:space-between;
+  color:#6b7280;
+  font-size:14px;
+  margin:12px 0 18px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.feature{
+  background:#fff;
+  text-align:center;
+  padding:25px 18px;
+  border-radius:15px;
+}
+.feature-icon{font-size:35px;margin-bottom:12px}
+.feature p{color:#6b7280;font-size:14px;margin-top:7px}
+
+.track{
+  background:#111827;
+  color:#fff;
+  border-radius:22px;
+  padding:40px;
+  max-width:850px;
+  margin:auto;
+  text-align:center;
+}
+.track h2{font-size:30px;margin-bottom:10px}
+.track p{color:#cbd5e1;margin-bottom:22px}
+.track-form{
+  display:flex;
+  gap:10px;
+  max-width:600px;
+  margin:auto;
+}
+.track-form input{
+  flex:1;
+  padding:15px;
+  border-radius:9px;
+  border:0;
+}
+
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+.about img{
+  width:100%;
+  border-radius:20px;
+}
+.about p{
+  color:#6b7280;
+  line-height:1.8;
+  margin:15px 0;
+}
+
+footer{
+  background:#111827;
+  color:#fff;
+  padding:45px 6%;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:40px;
+}
+footer h3{margin-bottom:15px}
+footer p,footer a{
+  color:#cbd5e1;
+  line-height:1.8;
+  text-decoration:none;
+  display:block;
+}
+.copyright{
+  border-top:1px solid #ffffff18;
+  margin-top:30px;
+  padding-top:20px;
+  color:#94a3b8;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#00000088;
+  z-index:500;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal-box{
+  background:#fff;
+  width:100%;
+  max-width:520px;
+  border-radius:18px;
+  padding:28px;
+  position:relative;
+  max-height:90vh;
+  overflow:auto;
+}
+.close{
+  position:absolute;
+  right:18px;
+  top:14px;
+  background:#f1f5f9;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+}
+.modal-box h2{margin-bottom:20px}
+.modal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.modal-grid .full{grid-column:1/-1}
+
+.result{
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  background:#f1f5f9;
+  display:none;
+}
+.result strong{color:#e63946}
+
+.admin{
+  display:none;
+  padding:40px 6%;
+}
+.admin-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.stat{
+  background:#fff;
+  padding:22px;
+  border-radius:15px;
+}
+.stat small{color:#6b7280}
+.stat h2{margin-top:8px}
+
+.booking-table{
+  margin-top:25px;
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  text-align:left;
+  padding:13px;
+  border-bottom:1px solid #eee;
+  white-space:nowrap;
+}
+th{font-size:13px;color:#6b7280}
+
+.whatsapp{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:#25D366;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  z-index:200;
+  box-shadow:0 5px 20px #0003;
+}
+
+@media(max-width:900px){
+  nav{display:none}
+  .menu{display:block}
+  .hero{padding:55px 6%;min-height:500px}
+  .hero h1{font-size:39px}
+  .booking-grid{grid-template-columns:1fr 1fr}
+  .routes{grid-template-columns:1fr 1fr}
+  .cars{grid-template-columns:1fr 1fr}
+  .features{grid-template-columns:1fr 1fr}
+  .about{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:600px){
+  header{height:62px;padding:0 5%}
+  .logo{font-size:17px}
+  .hero{padding:45px 5%;min-height:500px}
+  .hero h1{font-size:34px}
+  .hero p{font-size:15px}
+  .white{margin-left:5px}
+  .booking-box{
+    width:92%;
+    margin-top:-35px;
+    padding:18px;
+  }
+  .booking-grid{
+    grid-template-columns:1fr;
+  }
+  section{padding:55px 5%}
+  .section-title h2{font-size:27px}
+  .routes,.cars,.features{
+    grid-template-columns:1fr;
+  }
+  .track{
+    padding:28px 18px;
+  }
+  .track-form{flex-direction:column}
+  .footer-grid{grid-template-columns:1fr}
+  .modal-grid{grid-template-columns:1fr}
+  .modal-grid .full{grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">SAI <span>EXPRESS</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#cars">Cars</a>
+    <a href="#routes">Routes</a>
+    <a href="#track">Track Booking</a>
+    <a href="#contact">Contact</a>
+    <a href="#" onclick="openAdmin()">Admin</a>
+  </nav>
+
+  <div class="menu">☰</div>
+</header>
+
+<!-- HERO -->
+<div id="home" class="hero">
+  <div class="hero-content">
+    <div class="badge">🚕 Safe • Comfortable • Reliable</div>
+
+    <h1>Travel Easy With <span>Sai Express</span></h1>
+
+    <p>
+      Cab & outstation travel service from Mumbai, Navi Mumbai,
+      Thane and Maharashtra.
+    </p>
+
+    <button class="btn primary" onclick="openBooking()">Book Your Ride</button>
+    <button class="btn white" onclick="location.href='#track'">Track Booking</button>
+  </div>
+</div>
+
+<!-- QUICK BOOKING -->
+<div class="booking-box">
+  <h2>🚕 Quick Booking</h2>
+
+  <div class="booking-grid">
+
+    <div class="field">
+      <label>PICKUP LOCATION</label>
+      <input id="pickup" placeholder="e.g. Thane">
+    </div>
+
+    <div class="field">
+      <label>DROP LOCATION</label>
+      <input id="drop" placeholder="e.g. Ratnagiri">
+    </div>
+
+    <div class="field">
+      <label>TRIP TYPE</label>
+      <select id="tripType">
+        <option>One Way</option>
+        <option>Round Trip</option>
+        <option>Local</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>DATE</label>
+      <input id="date" type="date">
+    </div>
+
+  </div>
+
+  <button class="btn primary booking-submit" onclick="openBooking()">
+    Continue Booking →
+  </button>
+</div>
+
+<!-- ROUTES -->
+<section id="routes">
+  <div class="section-title">
+    <h2>Popular Routes</h2>
+    <p>Book your comfortable journey with Sai Express</p>
+  </div>
+
+  <div class="routes">
+    <div class="route">
+      <div class="icon">🏙️</div>
+      <h3>Mumbai</h3>
+      <p>Mumbai ↔ Maharashtra & Outstation</p>
+    </div>
+
+    <div class="route">
+      <div class="icon">⛰️</div>
+      <h3>Lonavala</h3>
+      <p>Mumbai / Navi Mumbai → Lonavala</p>
+    </div>
+
+    <div class="route">
+      <div class="icon">🛕</div>
+      <h3>Shirdi</h3>
+      <p>Comfortable family pilgrimage trips</p>
+    </div>
+
+    <div class="route">
+      <div class="icon">🌊</div>
+      <h3>Ratnagiri</h3>
+      <p>One-way & round-trip available</p>
+    </div>
+  </div>
+</section>
+
+<!-- CARS -->
+<section id="cars">
+  <div class="section-title">
+    <h2>Our Cars</h2>
+    <p>Choose a vehicle according to your trip</p>
+  </div>
+
+  <div class="cars">
+
+    <div class="car">
+      <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=900&q=80">
+      <div class="car-body">
+        <h3>Swift Dzire</h3>
+        <div class="car-info">
+          <span>👥 4+1</span>
+          <span>⛽ CNG/Petrol</span>
+        </div>
+        <button class="btn primary" onclick="selectCar('Swift Dzire')">
+          Book This Car
+        </button>
+      </div>
+    </div>
+
+    <div class="car">
+      <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=900&q=80">
+      <div class="car-body">
+        <h3>Sedan</h3>
+        <div class="car-info">
+          <span>👥 4+1</span>
+          <span>⛽ Petrol/CNG</span>
+        </div>
+        <button class="btn primary" onclick="selectCar('Sedan')">
+          Book This Car
+        </button>
+      </div>
+    </div>
+
+    <div class="car">
+      <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=900&q=80">
+      <div class="car-body">
+        <h3>Premium Car</h3>
+        <div class="car-info">
+          <span>👥 4+1</span>
+          <span>✨ Premium</span>
+        </div>
+        <button class="btn primary" onclick="selectCar('Premium Car')">
+          Book This Car
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="section-title">
+    <h2>Why Choose Us?</h2>
+    <p>Simple, transparent and comfortable travel</p>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">💰</div>
+      <h3>Affordable Fare</h3>
+      <p>Competitive pricing for your journey.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🚗</div>
+      <h3>Clean Cars</h3>
+      <p>Comfortable and maintained vehicles.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">👨‍✈️</div>
+      <h3>Professional Drivers</h3>
+      <p>Experienced drivers for your trip.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">📞</div>
+      <h3>Easy Support</h3>
+      <p>Call or WhatsApp us whenever needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK BOOKING -->
+<section id="track">
+  <div class="track">
+    <h2>🔎 Track Your Booking</h2>
+    <p>Enter your Booking ID / PNR number</p>
+
+    <div class="track-form">
+      <input id="pnrInput" placeholder="Example: SAI1025">
+      <button class="btn primary" onclick="trackBooking()">Track</button>
+    </div>
+
+    <div id="trackResult" class="result"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="about">
+
+    <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1000&q=80">
+
+    <div>
+      <h2>About Sai Express Tours & Travels</h2>
+
+      <p>
+        Sai Express Tours & Travels provides local, outstation,
+        one-way and round-trip travel services.
+      </p>
+
+      <p>
+        We focus on comfortable cars, transparent communication
+        and convenient booking.
+      </p>
+
+      <button class="btn primary" onclick="openBooking()">
+        Book Now
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer id="contact">
+  <div class="footer-grid">
+
+    <div>
+      <h3>SAI EXPRESS TOURS & TRAVELS</h3>
+      <p>Reliable travel partner for Maharashtra & outstation journeys.</p>
+    </div>
+
+    <div>
+      <h3>Quick Links</h3>
+      <a href="#home">Home</a>
+      <a href="#cars">Cars</a>
+      <a href="#routes">Routes</a>
+      <a href="#track">Track Booking</a>
+    </div>
+
+    <div>
+      <h3>Contact</h3>
+      <p>📞 Call for Booking</p>
+      <p>📱 WhatsApp Available</p>
+      <p>📍 Mumbai / Navi Mumbai</p>
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    © 2026 Sai Express Tours & Travels. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a class="whatsapp" href="https://wa.me/" target="_blank">☏</a>
+
+<!-- BOOKING MODAL -->
+<div id="bookingModal" class="modal">
+  <div class="modal-box">
+
+    <button class="close" onclick="closeBooking()">✕</button>
+
+    <h2>🚕 Book Your Ride</h2>
+
+    <div class="modal-grid">
+
+      <div class="field">
+        <label>NAME</label>
+        <input id="customerName" placeholder="Your Name">
+      </div>
+
+      <div class="field">
+        <label>MOBILE</label>
+        <input id="customerMobile" placeholder="Mobile Number">
+      </div>
+
+      <div class="field">
+        <label>PICKUP</label>
+        <input id="bookPickup" placeholder="Pickup Location">
+      </div>
+
+      <div class="field">
+        <label>DROP</label>
+        <input id="bookDrop" placeholder="Drop Location">
+      </div>
+
+      <div class="field">
+        <label>DATE</label>
+        <input id="bookDate" type="date">
+      </div>
+
+      <div class="field">
+        <label>TIME</label>
+        <input id="bookTime" type="time">
+      </div>
+
+      <div class="field full">
+        <label>CAR</label>
+        <select id="bookCar">
+          <option>Swift Dzire</option>
+          <option>Sedan</option>
+          <option>Premium Car</option>
+        </select>
+      </div>
+
+    </div>
+
+    <button class="btn primary" style="width:100%;margin-top:18px" onclick="createBooking()">
+      Confirm Booking
+    </button>
+
+    <div id="bookingResult" class="result"></div>
+
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminPanel" class="admin">
+
+  <div class="admin-head">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p style="color:#6b7280">Sai Express Tours & Travels</p>
+    </div>
+
+    <button class="btn primary" onclick="closeAdmin()">Close</button>
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <small>Total Bookings</small>
+      <h2 id="totalBookings">0</h2>
+    </div>
+
+    <div class="stat">
+      <small>Today's Bookings</small>
+      <h2 id="todayBookings">0</h2>
+    </div>
+
+    <div class="stat">
+      <small>Customers</small>
+      <h2 id="totalCustomers">0</h2>
+    </div>
+
+    <div class="stat">
+      <small>Cars</small>
+      <h2>3</h2>
+    </div>
+
+  </div>
+
+  <div class="booking-table">
+    <h2 style="margin-bottom:18px">Booking History</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>PNR</th>
+          <th>Customer</th>
+          <th>Route</th>
+          <th>Date</th>
+          <th>Car</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="bookingTable"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+
+let bookings = JSON.parse(localStorage.getItem("saiBookings") || "[]");
+
+function openBooking(){
+  document.getElementById("bookingModal").style.display="flex";
+
+  document.getElementById("bookPickup").value =
+    document.getElementById("pickup").value;
+
+  document.getElementById("bookDrop").value =
+    document.getElementById("drop").value;
+
+  document.getElementById("bookDate").value =
+    document.getElementById("date").value;
+}
+
+function closeBooking(){
+  document.getElementById("bookingModal").style.display="none";
+}
+
+function selectCar(car){
+  openBooking();
+  document.getElementById("bookCar").value=car;
+}
+
+function createBooking(){
+
+  const name=document.getElementById("customerName").value.trim();
+  const mobile=document.getElementById("customerMobile").value.trim();
+  const pickup=document.getElementById("bookPickup").value.trim();
+  const drop=document.getElementById("bookDrop").value.trim();
+  const date=document.getElementById("bookDate").value;
+  const time=document.getElementById("bookTime").value;
+  const car=document.getElementById("bookCar").value;
+
+  if(!name || !mobile || !pickup || !drop || !date){
+    alert("Please fill all required details.");
+    return;
+  }
+
+  const pnr="SAI"+Math.floor(1000+Math.random()*9000);
+
+  const booking={
+    pnr,
+    name,
+    mobile,
+    pickup,
+    drop,
+    date,
+    time,
+    car,
+    status:"Confirmed"
+  };
+
+  bookings.push(booking);
+
+  localStorage.setItem("saiBookings",JSON.stringify(bookings));
+
+  document.getElementById("bookingResult").style.display="block";
+
+  document.getElementById("bookingResult").innerHTML=
+  `
+  <h3>✅ Booking Confirmed</h3>
+  <p>Your Booking ID / PNR:</p>
+  <h2>${pnr}</h2>
+  <p>${pickup} → ${drop}</p>
+  <p>🚗 ${car}</p>
+  <p>📅 ${date}</p>
+  <p style="margin-top:8px">
+  Please save your PNR number for tracking.
+  </p>
+  `;
+
+  updateAdmin();
+}
+
+function trackBooking(){
+
+  const pnr=document.getElementById("pnrInput").value.trim().toUpperCase();
+
+  const booking=bookings.find(b=>b.pnr===pnr);
+
+  const result=document.getElementById("trackResult");
+
+  result.style.display="block";
+
+  if(!booking){
+    result.innerHTML="❌ Booking not found. Please check your PNR.";
+    return;
+  }
+
+  result.innerHTML=
+  `
+  <h3>✅ ${booking.status}</h3>
+  <p><strong>PNR:</strong> ${booking.pnr}</p>
+  <p><strong>Customer:</strong> ${booking.name}</p>
+  <p><strong>Route:</strong> ${booking.pickup} → ${booking.drop}</p>
+  <p><strong>Date:</strong> ${booking.date}</p>
+  <p><strong>Time:</strong> ${booking.time || "Not specified"}</p>
+  <p><strong>Car:</strong> ${booking.car}</p>
+  <p><strong>Driver:</strong> Will be assigned</p>
+  `;
+}
+
+function openAdmin(){
+
+  const password=prompt("Enter Admin Password:");
+
+  if(password!=="1234"){
+    alert("Wrong password");
+    return;
+  }
+
+  document.querySelector("header").style.display="none";
+
+  document.querySelectorAll("body > section, body > footer, body > .hero, body > .booking-box")
+  .forEach(x=>x.style.display="none");
+
+  document.getElementById("adminPanel").style.display="block";
+
+  updateAdmin();
+  window.scrollTo(0,0);
+}
+
+function closeAdmin(){
+
+  document.getElementById("adminPanel").style.display="none";
+
+  document.querySelector("header").style.display="flex";
+
+  document.querySelectorAll("body > section, body > footer, body > .hero, body > .booking-box")
+  .forEach(x=>x.style.display="");
+
+}
+
+function updateAdmin(){
+
+  document.getElementById("totalBookings").innerText=bookings.length;
+
+  const today=new Date().toISOString().split("T")[0];
+
+  document.getElementById("todayBookings").innerText=
+    bookings.filter(b=>b.date===today).length;
+
+  document.getElementById("totalCustomers").innerText=
+    new Set(bookings.map(b=>b.mobile)).size;
+
+  const table=document.getElementById("bookingTable");
+
+  table.innerHTML="";
+
+  bookings.slice().reverse().forEach(b=>{
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=
+    `
+    <td>${b.pnr}</td>
+    <td>${b.name}</td>
+    <td>${b.pickup} → ${b.drop}</td>
+    <td>${b.date}</td>
+    <td>${b.car}</td>
+    <td>🟢 ${b.status}</td>
+    `;
+
+    table.appendChild(tr);
+
+  });
+}
+
+window.addEventListener("click",function(e){
+  if(e.target===document.getElementById("bookingModal")){
+    closeBooking();
+  }
+});
+
+updateAdmin();
+
+</script>
+
+</body>
+</html>
